@@ -13,14 +13,14 @@ from typing import AsyncIterator
 
 from mcp.server.fastmcp import FastMCP
 
-from src.config import Settings, get_settings
-from src.connector import RAGFlowConnector
-from src.tools.retrieval import register_retrieval_tools
-from src.tools.datasets import register_dataset_tools
-from src.tools.documents import register_document_tools
-from src.tools.chunks import register_chunk_tools
-from src.tools.chat import register_chat_tools
-from src.tools.graph import register_graph_tools
+from ragflow_mcp.config import Settings, get_settings
+from ragflow_mcp.connector import RAGFlowConnector
+from ragflow_mcp.tools.retrieval import register_retrieval_tools
+from ragflow_mcp.tools.datasets import register_dataset_tools
+from ragflow_mcp.tools.documents import register_document_tools
+from ragflow_mcp.tools.chunks import register_chunk_tools
+from ragflow_mcp.tools.chat import register_chat_tools
+from ragflow_mcp.tools.graph import register_graph_tools
 
 
 # Global connector instance

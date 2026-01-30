@@ -9,7 +9,7 @@ class TestChunkTools:
     @pytest.fixture
     def mock_connector(self):
         """Create a mock connector for testing."""
-        from src.connector import RAGFlowConnector
+        from ragflow_mcp.connector import RAGFlowConnector
         connector = MagicMock(spec=RAGFlowConnector)
         connector.add_chunk = AsyncMock()
         connector.list_chunks = AsyncMock()
@@ -23,7 +23,7 @@ class TestChunkTools:
     @pytest.mark.asyncio
     async def test_add_chunk_with_content_and_keywords_succeeds(self, mock_connector):
         """Test 1: Add chunk with content and keywords succeeds."""
-        from src.tools.chunks import ragflow_add_chunk
+        from ragflow_mcp.tools.chunks import ragflow_add_chunk
 
         # Mock add chunk response
         mock_connector.add_chunk.return_value = {
@@ -57,7 +57,7 @@ class TestChunkTools:
     @pytest.mark.asyncio
     async def test_list_chunks_returns_paginated_results(self, mock_connector):
         """Test 2: List chunks returns paginated results."""
-        from src.tools.chunks import ragflow_list_chunks
+        from ragflow_mcp.tools.chunks import ragflow_list_chunks
 
         # Mock list chunks response with pagination
         mock_connector.list_chunks.return_value = {
@@ -95,7 +95,7 @@ class TestChunkTools:
     @pytest.mark.asyncio
     async def test_update_chunk_modifies_content_correctly(self, mock_connector):
         """Test 3: Update chunk modifies content correctly."""
-        from src.tools.chunks import ragflow_update_chunk
+        from ragflow_mcp.tools.chunks import ragflow_update_chunk
 
         # Mock update chunk response with new content
         mock_connector.update_chunk.return_value = {
@@ -124,7 +124,7 @@ class TestChunkTools:
     @pytest.mark.asyncio
     async def test_update_chunk_modifies_keywords_correctly(self, mock_connector):
         """Test 4: Update chunk modifies keywords correctly."""
-        from src.tools.chunks import ragflow_update_chunk
+        from ragflow_mcp.tools.chunks import ragflow_update_chunk
 
         # Mock update chunk response with new keywords
         mock_connector.update_chunk.return_value = {
@@ -153,7 +153,7 @@ class TestChunkTools:
     @pytest.mark.asyncio
     async def test_delete_single_chunk_requires_confirm_true(self, mock_connector):
         """Test 5: Delete single chunk requires confirm=True."""
-        from src.tools.chunks import ragflow_delete_chunk
+        from ragflow_mcp.tools.chunks import ragflow_delete_chunk
 
         # Mock successful delete response
         mock_connector.delete_chunk.return_value = {
@@ -196,7 +196,7 @@ class TestChunkTools:
     @pytest.mark.asyncio
     async def test_delete_batch_of_chunks_works_with_chunk_ids_list(self, mock_connector):
         """Test 6: Delete batch of chunks works with chunk_ids list."""
-        from src.tools.chunks import ragflow_delete_chunk
+        from ragflow_mcp.tools.chunks import ragflow_delete_chunk
 
         # Mock successful batch delete response
         mock_connector.delete_chunks_batch.return_value = {

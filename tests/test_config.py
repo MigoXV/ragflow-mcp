@@ -15,7 +15,7 @@ class TestConfiguration:
             "LOG_LEVEL": "DEBUG",
         }
         with patch.dict(os.environ, env_vars, clear=False):
-            from src.config import Settings
+            from ragflow_mcp.config import Settings
 
             settings = Settings()
 
@@ -34,7 +34,7 @@ class TestConfiguration:
         env_without_key.update(env_vars)
 
         with patch.dict(os.environ, env_without_key, clear=True):
-            from src.config import Settings
+            from ragflow_mcp.config import Settings
 
             with pytest.raises(ValueError) as exc_info:
                 Settings()
@@ -52,7 +52,7 @@ class TestConfiguration:
         env_with_only_key.update(env_vars)
 
         with patch.dict(os.environ, env_with_only_key, clear=True):
-            from src.config import Settings
+            from ragflow_mcp.config import Settings
 
             settings = Settings()
 

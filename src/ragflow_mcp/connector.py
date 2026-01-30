@@ -13,7 +13,7 @@ from typing import Any
 
 import httpx
 
-from src.cache import LRUCache
+from ragflow_mcp.cache import LRUCache
 
 
 logger = logging.getLogger(__name__)

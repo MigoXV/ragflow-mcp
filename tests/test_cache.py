@@ -1,7 +1,7 @@
 """Tests for LRU cache with TTL."""
 import time
 import pytest
-from src.cache import LRUCache
+from ragflow_mcp.cache import LRUCache
 
 
 class TestLRUCache:

@@ -10,7 +10,7 @@ class TestDocumentTools:
     @pytest.fixture
     def mock_connector(self):
         """Create a mock connector for testing."""
-        from src.connector import RAGFlowConnector
+        from ragflow_mcp.connector import RAGFlowConnector
         connector = MagicMock(spec=RAGFlowConnector)
         connector.upload_document = AsyncMock()
         connector.list_documents = AsyncMock()
@@ -26,7 +26,7 @@ class TestDocumentTools:
     @pytest.mark.asyncio
     async def test_upload_document_from_file_path_succeeds(self, mock_connector, tmp_path):
         """Test 1: Upload document from local file path succeeds."""
-        from src.tools.documents import ragflow_upload_document
+        from ragflow_mcp.tools.documents import ragflow_upload_document
 
         # Create a test file
         test_file = tmp_path / "test_document.txt"
@@ -57,7 +57,7 @@ class TestDocumentTools:
     @pytest.mark.asyncio
     async def test_upload_document_from_base64_succeeds(self, mock_connector):
         """Test 2: Upload document from base64 content succeeds."""
-        from src.tools.documents import ragflow_upload_document
+        from ragflow_mcp.tools.documents import ragflow_upload_document
 
         # Create base64 encoded content
         test_content = "This is test content encoded in base64."
@@ -88,7 +88,7 @@ class TestDocumentTools:
     @pytest.mark.asyncio
     async def test_list_documents_returns_filtered_results(self, mock_connector):
         """Test 3: List documents returns filtered results."""
-        from src.tools.documents import ragflow_list_documents
+        from ragflow_mcp.tools.documents import ragflow_list_documents
 
         # Mock list documents response with filters
         mock_connector.list_documents.return_value = {
@@ -123,7 +123,7 @@ class TestDocumentTools:
     @pytest.mark.asyncio
     async def test_parse_document_async_returns_task_id(self, mock_connector):
         """Test 4: Parse document (async) returns status."""
-        from src.tools.documents import ragflow_parse_document
+        from ragflow_mcp.tools.documents import ragflow_parse_document
 
         # Mock parse document response
         mock_connector.parse_document.return_value = {
@@ -153,7 +153,7 @@ class TestDocumentTools:
     @pytest.mark.asyncio
     async def test_parse_document_sync_waits_for_completion(self, mock_connector):
         """Test 5: Parse document (sync) waits for completion."""
-        from src.tools.documents import ragflow_parse_document_sync
+        from ragflow_mcp.tools.documents import ragflow_parse_document_sync
 
         # Mock parse response
         mock_connector.parse_document.return_value = {
@@ -187,7 +187,7 @@ class TestDocumentTools:
     @pytest.mark.asyncio
     async def test_download_document_returns_content(self, mock_connector):
         """Test 6: Download document returns content."""
-        from src.tools.documents import ragflow_download_document
+        from ragflow_mcp.tools.documents import ragflow_download_document
 
         # Mock download response with base64 encoded content (for binary)
         test_content = b"Binary content of the document"
@@ -213,7 +213,7 @@ class TestDocumentTools:
     @pytest.mark.asyncio
     async def test_delete_document_requires_confirm_true(self, mock_connector):
         """Test 7: Delete document requires confirm=True."""
-        from src.tools.documents import ragflow_delete_document
+        from ragflow_mcp.tools.documents import ragflow_delete_document
 
         # Mock successful delete response
         mock_connector.delete_document.return_value = {
@@ -254,7 +254,7 @@ class TestDocumentTools:
     @pytest.mark.asyncio
     async def test_stop_parsing_cancels_active_job(self, mock_connector):
         """Test 8: Stop parsing cancels active job."""
-        from src.tools.documents import ragflow_stop_parsing
+        from ragflow_mcp.tools.documents import ragflow_stop_parsing
 
         # Mock stop parsing response
         mock_connector.stop_parsing.return_value = {

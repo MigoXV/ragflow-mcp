@@ -10,7 +10,7 @@ class TestRAGFlowConnector:
     @pytest.mark.asyncio
     async def test_connector_initializes_with_correct_auth_headers(self):
         """Test 5: RAGFlowConnector initializes with correct auth headers."""
-        from src.connector import RAGFlowConnector
+        from ragflow_mcp.connector import RAGFlowConnector
 
         api_key = "test-api-key-12345"
         base_url = "http://localhost:9380/api/v1"
@@ -23,7 +23,7 @@ class TestRAGFlowConnector:
     @pytest.mark.asyncio
     async def test_connector_handles_connection_errors_gracefully(self):
         """Test 6: RAGFlowConnector handles connection errors gracefully."""
-        from src.connector import RAGFlowConnector, RAGFlowConnectionError
+        from ragflow_mcp.connector import RAGFlowConnector, RAGFlowConnectionError
 
         api_key = "test-api-key-12345"
         # Use non-routable address to trigger connection error
@@ -39,7 +39,7 @@ class TestRAGFlowConnector:
     @pytest.mark.asyncio
     async def test_connector_parses_error_responses(self):
         """Test that connector parses RAGFlow error responses correctly."""
-        from src.connector import RAGFlowConnector, RAGFlowAPIError
+        from ragflow_mcp.connector import RAGFlowConnector, RAGFlowAPIError
 
         api_key = "test-api-key-12345"
         base_url = "http://localhost:9380/api/v1"
@@ -69,7 +69,7 @@ class TestRAGFlowConnector:
     @pytest.mark.asyncio
     async def test_connector_async_context_manager(self):
         """Test that connector properly manages client lifecycle."""
-        from src.connector import RAGFlowConnector
+        from ragflow_mcp.connector import RAGFlowConnector
 
         api_key = "test-api-key-12345"
         base_url = "http://localhost:9380/api/v1"

@@ -15,7 +15,7 @@ class TestIntegrationWorkflows:
     @pytest.fixture
     def mock_connector(self):
         """Create a mock connector for integration testing."""
-        from src.connector import RAGFlowConnector
+        from ragflow_mcp.connector import RAGFlowConnector
         connector = MagicMock(spec=RAGFlowConnector)
         connector.cache = MagicMock()
         connector.invalidate_cache = MagicMock()
@@ -31,9 +31,9 @@ class TestIntegrationWorkflows:
         3. Parse the document
         4. Perform retrieval on the dataset
         """
-        from src.tools.datasets import ragflow_create_dataset
-        from src.tools.documents import ragflow_upload_document, ragflow_parse_document_sync
-        from src.tools.retrieval import ragflow_retrieval
+        from ragflow_mcp.tools.datasets import ragflow_create_dataset
+        from ragflow_mcp.tools.documents import ragflow_upload_document, ragflow_parse_document_sync
+        from ragflow_mcp.tools.retrieval import ragflow_retrieval
 
         # Step 1: Create dataset
         mock_connector.create_dataset = AsyncMock(return_value={
@@ -107,8 +107,8 @@ class TestIntegrationWorkflows:
     @pytest.mark.asyncio
     async def test_document_upload_parse_and_chunk_access(self, mock_connector):
         """Integration test: Document upload, parse, and chunk access workflow."""
-        from src.tools.documents import ragflow_upload_document, ragflow_parse_document
-        from src.tools.chunks import ragflow_list_chunks
+        from ragflow_mcp.tools.documents import ragflow_upload_document, ragflow_parse_document
+        from ragflow_mcp.tools.chunks import ragflow_list_chunks
 
         # Step 1: Upload document
         mock_connector.upload_document = AsyncMock(return_value={
@@ -158,8 +158,8 @@ class TestIntegrationWorkflows:
     @pytest.mark.asyncio
     async def test_chat_assistant_creation_with_dataset_linking(self, mock_connector):
         """Integration test: Chat assistant creation with dataset linking."""
-        from src.tools.datasets import ragflow_create_dataset, ragflow_list_datasets
-        from src.tools.chat import ragflow_create_chat, ragflow_create_session, ragflow_chat
+        from ragflow_mcp.tools.datasets import ragflow_create_dataset, ragflow_list_datasets
+        from ragflow_mcp.tools.chat import ragflow_create_chat, ragflow_create_session, ragflow_chat
 
         # Step 1: Create datasets for the chat assistant
         mock_connector.create_dataset = AsyncMock(side_effect=[
@@ -218,7 +218,7 @@ class TestErrorHandling:
     @pytest.mark.asyncio
     async def test_network_timeout_simulation(self):
         """Error handling: Network timeout simulation."""
-        from src.connector import RAGFlowConnector, RAGFlowConnectionError
+        from ragflow_mcp.connector import RAGFlowConnector, RAGFlowConnectionError
 
         api_key = "test-api-key"
         # Use a non-routable IP to trigger timeout
@@ -234,7 +234,7 @@ class TestErrorHandling:
     @pytest.mark.asyncio
     async def test_invalid_api_key_response(self):
         """Error handling: Invalid API key response."""
-        from src.connector import RAGFlowConnector, RAGFlowAPIError
+        from ragflow_mcp.connector import RAGFlowConnector, RAGFlowAPIError
 
         api_key = "invalid-api-key"
         base_url = "http://localhost:9380/api/v1"
@@ -265,8 +265,8 @@ class TestErrorHandling:
         Tests that the connector properly validates upload document parameters.
         The validation occurs in the connector.upload_document method.
         """
-        from src.connector import RAGFlowConnector
-        from src.tools.datasets import ragflow_delete_dataset
+        from ragflow_mcp.connector import RAGFlowConnector
+        from ragflow_mcp.tools.datasets import ragflow_delete_dataset
 
         # Test 1: Delete dataset without confirm=True
         mock_connector = MagicMock()
@@ -319,7 +319,7 @@ class TestEdgeCases:
     @pytest.mark.asyncio
     async def test_empty_dataset_retrieval_behavior(self):
         """Edge case: Empty dataset retrieval behavior."""
-        from src.tools.retrieval import ragflow_retrieval
+        from ragflow_mcp.tools.retrieval import ragflow_retrieval
 
         mock_connector = MagicMock()
         mock_connector.retrieval = AsyncMock(return_value={
@@ -340,7 +340,7 @@ class TestEdgeCases:
     @pytest.mark.asyncio
     async def test_large_result_pagination(self):
         """Edge case: Large result pagination."""
-        from src.tools.datasets import ragflow_list_datasets
+        from ragflow_mcp.tools.datasets import ragflow_list_datasets
 
         mock_connector = MagicMock()
 
@@ -377,7 +377,7 @@ class TestConfigurationValidation:
 
     def test_environment_variable_validation(self):
         """Configuration: Environment variable validation."""
-        from src.config import Settings
+        from ragflow_mcp.config import Settings
 
         # Test with valid configuration
         env_vars = {
@@ -399,7 +399,7 @@ class TestConfigurationValidation:
 
     def test_missing_api_key_raises_error(self):
         """Configuration: Missing API key raises clear error."""
-        from src.config import Settings
+        from ragflow_mcp.config import Settings
 
         # Remove RAGFLOW_API_KEY from environment
         env_without_key = {k: v for k, v in os.environ.items() if k != "RAGFLOW_API_KEY"}
@@ -418,7 +418,7 @@ class TestServerLifecycle:
     @pytest.mark.asyncio
     async def test_clean_startup_and_shutdown(self):
         """Server lifecycle: Clean startup and shutdown."""
-        from src.connector import RAGFlowConnector
+        from ragflow_mcp.connector import RAGFlowConnector
 
         api_key = "test-api-key"
         base_url = "http://localhost:9380/api/v1"
@@ -441,7 +441,7 @@ class TestServerLifecycle:
     @pytest.mark.asyncio
     async def test_connector_raises_when_not_initialized(self):
         """Server lifecycle: Connector raises error when not initialized."""
-        from src.connector import RAGFlowConnector
+        from ragflow_mcp.connector import RAGFlowConnector
 
         api_key = "test-api-key"
         base_url = "http://localhost:9380/api/v1"

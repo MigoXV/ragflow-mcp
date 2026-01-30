@@ -35,7 +35,7 @@ pip install -e .
 Add to your Claude Code MCP settings:
 
 ```bash
-claude mcp add ragflow -e RAGFLOW_API_KEY=your-api-key -e RAGFLOW_URL=http://localhost:9380/api/v1 -- python -m src.server
+claude mcp add ragflow -e RAGFLOW_API_KEY=your-api-key -e RAGFLOW_URL=http://localhost:9380/api/v1 -- python -m ragflow_mcp.server
 ```
 
 Or manually add to `~/.claude/settings.json`:

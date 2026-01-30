@@ -9,7 +9,7 @@ class TestChatTools:
     @pytest.fixture
     def mock_connector(self):
         """Create a mock connector for testing."""
-        from src.connector import RAGFlowConnector
+        from ragflow_mcp.connector import RAGFlowConnector
         connector = MagicMock(spec=RAGFlowConnector)
         connector.create_chat = AsyncMock()
         connector.list_chats = AsyncMock()
@@ -25,7 +25,7 @@ class TestChatTools:
     @pytest.mark.asyncio
     async def test_create_chat_assistant_with_valid_config_succeeds(self, mock_connector):
         """Test 1: Create chat assistant with valid config succeeds."""
-        from src.tools.chat import ragflow_create_chat
+        from ragflow_mcp.tools.chat import ragflow_create_chat
 
         # Mock create chat response
         mock_connector.create_chat.return_value = {
@@ -60,7 +60,7 @@ class TestChatTools:
     @pytest.mark.asyncio
     async def test_list_chat_assistants_returns_results(self, mock_connector):
         """Test 2: List chat assistants returns results."""
-        from src.tools.chat import ragflow_list_chats
+        from ragflow_mcp.tools.chat import ragflow_list_chats
 
         # Mock list chats response
         mock_connector.list_chats.return_value = {
@@ -84,7 +84,7 @@ class TestChatTools:
     @pytest.mark.asyncio
     async def test_update_chat_assistant_modifies_config_correctly(self, mock_connector):
         """Test 3: Update chat assistant modifies config correctly."""
-        from src.tools.chat import ragflow_update_chat
+        from ragflow_mcp.tools.chat import ragflow_update_chat
 
         # Mock update chat response
         mock_connector.update_chat.return_value = {
@@ -117,7 +117,7 @@ class TestChatTools:
     @pytest.mark.asyncio
     async def test_delete_chat_assistant_requires_confirm_true(self, mock_connector):
         """Test 4: Delete chat assistant requires confirm=True."""
-        from src.tools.chat import ragflow_delete_chat
+        from ragflow_mcp.tools.chat import ragflow_delete_chat
 
         # Mock successful delete response
         mock_connector.delete_chat.return_value = {
@@ -151,7 +151,7 @@ class TestChatTools:
     @pytest.mark.asyncio
     async def test_create_session_for_chat_assistant_succeeds(self, mock_connector):
         """Test 5: Create session for chat assistant succeeds."""
-        from src.tools.chat import ragflow_create_session
+        from ragflow_mcp.tools.chat import ragflow_create_session
 
         # Mock create session response
         mock_connector.create_session.return_value = {
@@ -177,7 +177,7 @@ class TestChatTools:
     @pytest.mark.asyncio
     async def test_list_sessions_for_chat_assistant_returns_results(self, mock_connector):
         """Test 6: List sessions for chat assistant returns results."""
-        from src.tools.chat import ragflow_list_sessions
+        from ragflow_mcp.tools.chat import ragflow_list_sessions
 
         # Mock list sessions response
         mock_connector.list_sessions.return_value = {
@@ -205,7 +205,7 @@ class TestChatTools:
     @pytest.mark.asyncio
     async def test_send_message_to_session_returns_response(self, mock_connector):
         """Test 7: Send message to session returns response."""
-        from src.tools.chat import ragflow_chat
+        from ragflow_mcp.tools.chat import ragflow_chat
 
         # Mock chat response
         mock_connector.send_message.return_value = {
@@ -235,7 +235,7 @@ class TestChatTools:
     @pytest.mark.asyncio
     async def test_chat_response_includes_source_citations(self, mock_connector):
         """Test 8: Chat response includes source citations."""
-        from src.tools.chat import ragflow_chat
+        from ragflow_mcp.tools.chat import ragflow_chat
 
         # Mock chat response with source citations
         mock_connector.send_message.return_value = {

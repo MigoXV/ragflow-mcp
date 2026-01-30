@@ -9,7 +9,7 @@ class TestRetrievalTool:
     @pytest.fixture
     def mock_connector(self):
         """Create a mock connector for testing."""
-        from src.connector import RAGFlowConnector
+        from ragflow_mcp.connector import RAGFlowConnector
         connector = MagicMock(spec=RAGFlowConnector)
         connector.retrieval = AsyncMock()
         connector.cache = MagicMock()
@@ -18,7 +18,7 @@ class TestRetrievalTool:
     @pytest.mark.asyncio
     async def test_basic_retrieval_returns_chunks_with_content(self, mock_connector):
         """Test 1: Basic retrieval query returns chunks with content."""
-        from src.tools.retrieval import ragflow_retrieval
+        from ragflow_mcp.tools.retrieval import ragflow_retrieval
 
         # Mock retrieval response with chunks
         mock_connector.retrieval.return_value = {
@@ -53,7 +53,7 @@ class TestRetrievalTool:
     @pytest.mark.asyncio
     async def test_retrieval_respects_similarity_threshold(self, mock_connector):
         """Test 2: Retrieval respects similarity_threshold parameter."""
-        from src.tools.retrieval import ragflow_retrieval
+        from ragflow_mcp.tools.retrieval import ragflow_retrieval
 
         mock_connector.retrieval.return_value = {"chunks": [], "total": 0}
 
@@ -68,7 +68,7 @@ class TestRetrievalTool:
     @pytest.mark.asyncio
     async def test_retrieval_respects_top_k_parameter(self, mock_connector):
         """Test 3: Retrieval respects top_k parameter."""
-        from src.tools.retrieval import ragflow_retrieval
+        from ragflow_mcp.tools.retrieval import ragflow_retrieval
 
         mock_connector.retrieval.return_value = {"chunks": [], "total": 0}
 
@@ -83,7 +83,7 @@ class TestRetrievalTool:
     @pytest.mark.asyncio
     async def test_retrieval_with_dataset_ids_filter(self, mock_connector):
         """Test 4: Retrieval with dataset_ids filter works correctly."""
-        from src.tools.retrieval import ragflow_retrieval
+        from ragflow_mcp.tools.retrieval import ragflow_retrieval
 
         mock_connector.retrieval.return_value = {
             "chunks": [
@@ -111,7 +111,7 @@ class TestRetrievalTool:
     @pytest.mark.asyncio
     async def test_retrieval_with_document_ids_filter(self, mock_connector):
         """Test 5: Retrieval with document_ids filter works correctly."""
-        from src.tools.retrieval import ragflow_retrieval
+        from ragflow_mcp.tools.retrieval import ragflow_retrieval
 
         mock_connector.retrieval.return_value = {
             "chunks": [
@@ -139,7 +139,7 @@ class TestRetrievalTool:
     @pytest.mark.asyncio
     async def test_retrieval_handles_empty_results_gracefully(self, mock_connector):
         """Test 6: Retrieval handles empty results gracefully."""
-        from src.tools.retrieval import ragflow_retrieval
+        from ragflow_mcp.tools.retrieval import ragflow_retrieval
 
         # Mock empty response
         mock_connector.retrieval.return_value = {"chunks": [], "total": 0}

@@ -17,7 +17,7 @@ def get_connector():
     This function is imported from server module to avoid circular imports.
     It will be patched during testing.
     """
-    from src.server import get_connector as _get_connector
+    from ragflow_mcp.server import get_connector as _get_connector
     return _get_connector()
 
 

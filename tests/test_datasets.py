@@ -9,7 +9,7 @@ class TestDatasetTools:
     @pytest.fixture
     def mock_connector(self):
         """Create a mock connector for testing."""
-        from src.connector import RAGFlowConnector
+        from ragflow_mcp.connector import RAGFlowConnector
         connector = MagicMock(spec=RAGFlowConnector)
         connector.create_dataset = AsyncMock()
         connector.list_datasets = AsyncMock()
@@ -22,7 +22,7 @@ class TestDatasetTools:
     @pytest.mark.asyncio
     async def test_create_dataset_with_valid_parameters_succeeds(self, mock_connector):
         """Test 1: Create dataset with valid parameters succeeds."""
-        from src.tools.datasets import ragflow_create_dataset
+        from ragflow_mcp.tools.datasets import ragflow_create_dataset
 
         # Mock create dataset response
         mock_connector.create_dataset.return_value = {
@@ -54,7 +54,7 @@ class TestDatasetTools:
     @pytest.mark.asyncio
     async def test_list_datasets_returns_paginated_results(self, mock_connector):
         """Test 2: List datasets returns paginated results."""
-        from src.tools.datasets import ragflow_list_datasets
+        from ragflow_mcp.tools.datasets import ragflow_list_datasets
 
         # Mock list datasets response with pagination
         mock_connector.list_datasets.return_value = {
@@ -86,7 +86,7 @@ class TestDatasetTools:
     @pytest.mark.asyncio
     async def test_list_datasets_with_name_filter_works(self, mock_connector):
         """Test 3: List datasets with name filter works."""
-        from src.tools.datasets import ragflow_list_datasets
+        from ragflow_mcp.tools.datasets import ragflow_list_datasets
 
         # Mock filtered list response
         mock_connector.list_datasets.return_value = {
@@ -113,7 +113,7 @@ class TestDatasetTools:
     @pytest.mark.asyncio
     async def test_update_dataset_modifies_fields_correctly(self, mock_connector):
         """Test 4: Update dataset modifies fields correctly."""
-        from src.tools.datasets import ragflow_update_dataset
+        from ragflow_mcp.tools.datasets import ragflow_update_dataset
 
         # Mock update response
         mock_connector.update_dataset.return_value = {
@@ -145,7 +145,7 @@ class TestDatasetTools:
     @pytest.mark.asyncio
     async def test_delete_dataset_requires_confirm_true(self, mock_connector):
         """Test 5: Delete dataset requires confirm=True."""
-        from src.tools.datasets import ragflow_delete_dataset
+        from ragflow_mcp.tools.datasets import ragflow_delete_dataset
 
         # Mock successful delete response
         mock_connector.delete_dataset.return_value = {
@@ -165,7 +165,7 @@ class TestDatasetTools:
     @pytest.mark.asyncio
     async def test_delete_dataset_fails_when_confirm_false(self, mock_connector):
         """Test 6: Delete dataset fails when confirm=False."""
-        from src.tools.datasets import ragflow_delete_dataset
+        from ragflow_mcp.tools.datasets import ragflow_delete_dataset
 
         with patch("src.tools.datasets.get_connector", return_value=mock_connector):
             result = await ragflow_delete_dataset(id="dataset-123", confirm=False)

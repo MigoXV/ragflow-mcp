@@ -9,7 +9,7 @@ class TestGraphRAGAndRAPTORTools:
     @pytest.fixture
     def mock_connector(self):
         """Create a mock connector for testing."""
-        from src.connector import RAGFlowConnector
+        from ragflow_mcp.connector import RAGFlowConnector
         connector = MagicMock(spec=RAGFlowConnector)
         connector.build_graph = AsyncMock()
         connector.get_graph_status = AsyncMock()
@@ -24,7 +24,7 @@ class TestGraphRAGAndRAPTORTools:
     @pytest.mark.asyncio
     async def test_build_graph_triggers_construction_and_returns_task_id(self, mock_connector):
         """Test 1: Build graph triggers construction and returns task_id."""
-        from src.tools.graph import ragflow_build_graph
+        from ragflow_mcp.tools.graph import ragflow_build_graph
 
         # Mock build graph response
         mock_connector.build_graph.return_value = {
@@ -50,7 +50,7 @@ class TestGraphRAGAndRAPTORTools:
     @pytest.mark.asyncio
     async def test_graph_status_returns_construction_progress(self, mock_connector):
         """Test 2: Graph status returns construction progress."""
-        from src.tools.graph import ragflow_graph_status
+        from ragflow_mcp.tools.graph import ragflow_graph_status
 
         # Mock graph status response - in progress
         mock_connector.get_graph_status.return_value = {
@@ -77,7 +77,7 @@ class TestGraphRAGAndRAPTORTools:
     @pytest.mark.asyncio
     async def test_get_graph_returns_entities_and_relationships(self, mock_connector):
         """Test 3: Get graph returns entities and relationships."""
-        from src.tools.graph import ragflow_get_graph
+        from ragflow_mcp.tools.graph import ragflow_get_graph
 
         # Mock get graph response with entities and relationships
         mock_connector.get_graph.return_value = {
@@ -124,7 +124,7 @@ class TestGraphRAGAndRAPTORTools:
     @pytest.mark.asyncio
     async def test_delete_graph_requires_confirm_true(self, mock_connector):
         """Test 4: Delete graph requires confirm=True."""
-        from src.tools.graph import ragflow_delete_graph
+        from ragflow_mcp.tools.graph import ragflow_delete_graph
 
         # Mock successful delete response
         mock_connector.delete_graph.return_value = {
@@ -158,7 +158,7 @@ class TestGraphRAGAndRAPTORTools:
     @pytest.mark.asyncio
     async def test_build_raptor_triggers_construction_and_returns_task_id(self, mock_connector):
         """Test 5: Build RAPTOR triggers construction and returns task_id."""
-        from src.tools.graph import ragflow_build_raptor
+        from ragflow_mcp.tools.graph import ragflow_build_raptor
 
         # Mock build RAPTOR response
         mock_connector.build_raptor.return_value = {
@@ -184,7 +184,7 @@ class TestGraphRAGAndRAPTORTools:
     @pytest.mark.asyncio
     async def test_raptor_status_returns_construction_progress(self, mock_connector):
         """Test 6: RAPTOR status returns construction progress."""
-        from src.tools.graph import ragflow_raptor_status
+        from ragflow_mcp.tools.graph import ragflow_raptor_status
 
         # Mock RAPTOR status response - completed
         mock_connector.get_raptor_status.return_value = {
@@ -213,7 +213,7 @@ class TestGraphRAGAndRAPTORTools:
     @pytest.mark.asyncio
     async def test_graph_operations_handle_dataset_without_graph_gracefully(self, mock_connector):
         """Test 7: Graph operations handle dataset without graph gracefully."""
-        from src.tools.graph import ragflow_get_graph
+        from ragflow_mcp.tools.graph import ragflow_get_graph
 
         # Mock get graph response for dataset without a graph
         mock_connector.get_graph.return_value = {
@@ -243,7 +243,7 @@ class TestGraphRAGAndRAPTORTools:
     @pytest.mark.asyncio
     async def test_long_running_operations_report_progress_correctly(self, mock_connector):
         """Test 8: Long-running operations report progress correctly."""
-        from src.tools.graph import ragflow_graph_status
+        from ragflow_mcp.tools.graph import ragflow_graph_status
 
         # Simulate progress updates at different stages
         progress_stages = [
