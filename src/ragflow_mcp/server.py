@@ -145,34 +145,9 @@ async def get_status() -> str:
 }}"""
 
 
-def parse_args() -> argparse.Namespace:
-    """Parse command line arguments."""
-    parser = argparse.ArgumentParser(
-        description="RAGFlow MCP Server - Semantic retrieval and knowledge management"
-    )
-    parser.add_argument(
-        "--transport",
-        choices=["stdio", "sse"],
-        default="stdio",
-        help="Transport type (default: stdio)",
-    )
-    parser.add_argument(
-        "--host",
-        default="127.0.0.1",
-        help="Host for SSE transport (default: 127.0.0.1)",
-    )
-    parser.add_argument(
-        "--port",
-        type=int,
-        default=8000,
-        help="Port for SSE transport (default: 8000)",
-    )
-    return parser.parse_args()
-
 
 def main() -> None:
     """Main entry point for the server."""
-    args = parse_args()
 
     try:
         # Validate configuration early
@@ -181,10 +156,7 @@ def main() -> None:
         print(f"Configuration error: {e}", file=sys.stderr)
         sys.exit(1)
 
-    if args.transport == "stdio":
-        mcp.run(transport="stdio")
-    else:
-        mcp.run(transport="sse", sse_params={"host": args.host, "port": args.port})
+    mcp.run(transport="streamable-http")
 
 
 if __name__ == "__main__":
