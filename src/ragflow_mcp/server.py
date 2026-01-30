@@ -119,6 +119,7 @@ Available capabilities:
 
 Use the status resource to check server health.""",
     lifespan=lifespan,
+    host="0.0.0.0"
 )
 
 # Register all tools
