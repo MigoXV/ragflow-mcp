@@ -24,7 +24,7 @@ dependencies = [
 ]
 
 [project.scripts]
-ragflow-mcp = "src.server:main"
+ragflow-mcp = "ragflow_mcp.server:main"
 
 [tool.poetry]
 packages = [{include = "ragflow_mcp", from = "src"}]
